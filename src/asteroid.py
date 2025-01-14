@@ -7,9 +7,18 @@ from constants import ASTEROID_MIN_RADIUS
 class Asteroid(CircleShape):
     def __init__(self, x: float, y: float, radius: int):
         super().__init__(x, y, radius)
+        self.point_vectors = [
+            pygame.Vector2(0, self.radius * random.uniform(0.7, 1)).rotate(i)
+            for i in range(0, 360, 45)
+        ]
 
     def draw(self, screen):
-        pygame.draw.circle(screen, (255, 255, 255), self.position, self.radius, 2)
+        pygame.draw.polygon(
+            screen,
+            (255, 255, 255),
+            [self.position + v for v in self.point_vectors],
+            2,
+        )
 
     def update(self, dt):
         self.position += self.velocity * dt
