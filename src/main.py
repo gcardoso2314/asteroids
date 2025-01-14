@@ -21,9 +21,13 @@ def main():
                 return
 
         player.update(dt)
+        for shot in player.shots:
+            shot.update(dt)
 
         screen.fill((0, 0, 0))
         player.draw(screen)
+        for shot in player.shots:
+            shot.draw(screen)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
